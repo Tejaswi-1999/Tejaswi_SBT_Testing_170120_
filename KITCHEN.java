@@ -2,6 +2,8 @@ package com.deloitte.selenium;
 
 import java.io.IOException;
 import java.sql.Driver;
+import java.util.Iterator;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -25,6 +27,12 @@ public class KITCHEN {
 		   
 		 
 		   driver.get("https://www.amazon.in/");
+		   Set<String> ids = driver.getWindowHandles();
+	        Iterator<String> it = ids.iterator();
+	        String parentId = it.next();
+	        String childId = it.next();
+	        driver.switchTo().window(childId);
+	        driver.findElement(By.id("add-to-cart-button")).click();
 		   driver.manage().window().maximize();
 		   driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
 		   WebElement searchBox=driver.findElement(By.cssSelector(("#twotabsearchtextbox")));
